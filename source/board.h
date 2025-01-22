@@ -26,7 +26,7 @@
 /*#define MEASURE_IRQ_TIME 1*/
 
 /***************Pins for Interruptions*********************/
-#define SEGMENT_E PORTNUM2PIN(PC,0)
+/*#define SEGMENT_E PORTNUM2PIN(PC,0)
 #define SEGMENT_D PORTNUM2PIN(PC,9)
 #define SEGMENT_C PORTNUM2PIN(PC,8)
 #define SEGMENT_B PORTNUM2PIN(PC,1)
@@ -38,7 +38,7 @@
 #define SEL_0 	  PORTNUM2PIN(PB,2)
 #define SEL_1 	  PORTNUM2PIN(PB,3)
 #define STATUS_0  PORTNUM2PIN(PB,10)
-#define STATUS_1  PORTNUM2PIN(PB,11)
+#define STATUS_1  PORTNUM2PIN(PB,11)*/
 /****************************************************/
 
 /***************Pins for Magnetic Card****************/
@@ -48,10 +48,10 @@
 /****************************************************/
 
 /***************Pins for Encoder*********************/
-#define PIN_ENCODER_A 	PORTNUM2PIN(PD,0)
-#define PIN_ENCODER_B 	PORTNUM2PIN(PC,4)
+#define PIN_ENCODER_A 	PORTNUM2PIN(PC, 8)
+#define PIN_ENCODER_B 	PORTNUM2PIN(PB, 18)
 
-#define PIN_ENCODER_C 	PORTNUM2PIN(PC,3)//
+#define PIN_ENCODER_C 	PORTNUM2PIN(PB, 19)//
 
 
 #define ENCODER_ACTIVE 	LOW
@@ -66,8 +66,8 @@
 #define LED_ACTIVE      LOW
 
 // On Board User Switches
-#define PIN_SW2         PORTNUM2PIN(PC, 6)
-#define PIN_SW3         PORTNUM2PIN(PA, 4)
+#define PIN_SW2         PORTNUM2PIN(PC,5)
+#define PIN_SW3         PORTNUM2PIN(PC,7)
 #define SW_ACTIVE       LOW
 /****************************************************/
 #define SD_PIN			PORTNUM2PIN(PE, 6)

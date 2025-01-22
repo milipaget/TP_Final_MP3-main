@@ -20,7 +20,7 @@
  ******************************************************************************/
 mp3config_variables_t* initMp3Config(void){
     mp3ConfigVariables.volume = MAX_VOLUME/2; //uint8_t
-    mp3ConfigVariables.songPointer = 1; //uint8_t Arranca en 1 porque tenemos el archivo ese de android maldito
+    mp3ConfigVariables.songPointer = 0; //uint8_t Arranca en 1 porque tenemos el archivo ese de android maldito
     mp3ConfigVariables.songSelected = false; //Esto capaz es al pedo
     mp3ConfigVariables.isPlaying = true;
     mp3ConfigVariables.isOn = true;

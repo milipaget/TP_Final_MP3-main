@@ -8,21 +8,21 @@
 /*******************************************************************************
  * INCLUDE HEADER FILES
  ******************************************************************************/
-/*#include "timerPIT.h"
-#include "board.h"*/
+#include "timerPIT.h"
+#include "board.h"
 
 
 /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
-/*#define PIT_CANT_TIMERS 4
+#define PIT_CANT_TIMERS 4
 
 
 
 /*******************************************************************************
  * GLOBAL VARIABLES
  ******************************************************************************/
-/*PIT_Type* pits = PIT ;
+PIT_Type* pits = PIT ;
 static pit_config my_configs[PIT_CANT_TIMERS];
 static pittimer_callback pitCallbacks[PIT_CANT_TIMERS];
 
@@ -32,7 +32,7 @@ static pittimer_callback pitCallbacks[PIT_CANT_TIMERS];
                         GLOBAL FUNCTION DEFINITIONS
  *******************************************************************************
  ******************************************************************************/
-/*void timerPITinit(pit_config config, pittimer_callback pitcallback )
+void timerPITinit(pit_config config, pittimer_callback pitcallback )
 {
 	//Clock gating
 	 SIM->SCGC6 |= SIM_SCGC6_PIT_MASK;
@@ -112,4 +112,4 @@ __ISR__ PIT3_IRQHandler(void)
 	//Writing 1 to this flag clears it. Writing 0 has no effect.
 	(*pitCallbacks[3])();
 }
-*/
+

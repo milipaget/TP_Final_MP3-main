@@ -1,8 +1,12 @@
 /***************************************************************************//**
   @file     dma.h
-  @brief    Driver for Dynamic Memory Access
-  @author   TEAM OREO
- ******************************************************************************/
+  @brief    DMA for music purposes
+  @author   Grupo 4 Laboratorio de Microprocesadores:
+  	  	  	Corcos, Manuel
+  	  	  	Lesiuk, Alejandro
+  	  	  	Paget, Milagros
+  	  	  	Voss, Maria de Guadalupe
+  ******************************************************************************/
 #ifndef DMA_H_
 #define DMA_H_
 

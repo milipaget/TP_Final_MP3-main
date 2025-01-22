@@ -1,3 +1,12 @@
+/***************************************************************************//**
+  @file     mp3Decoder.c
+  @brief    Decoder for music files
+  @author   Grupo 4 Laboratorio de Microprocesadores:
+  	  	  	Corcos, Manuel
+  	  	  	Lesiuk, Alejandro
+  	  	  	Paget, Milagros
+  	  	  	Voss, Maria de Guadalupe
+  ******************************************************************************/
 /*******************************************************************************
  * INCLUDE HEADER FILES
  ******************************************************************************/
@@ -56,6 +65,7 @@ FILINFO fno;
 
 void MP3ReadID3Data(mp3_id3Metadata* outMetadata);
 void clearPath(void);
+void initPath(void);
 /*******************************************************************************
  *******************************************************************************
                         GLOBAL FUNCTION DEFINITIONS
@@ -67,11 +77,13 @@ bool MP3DecInit() {
 	return mp3Dec == NULL;
 }
 
+
 bool MP3SelectSong(char* songName, mp3_id3Metadata* outMetadata) {
 
 	if (fileOpen) {
 		f_close(&mp3File);
 		fileOpen = false;
+		initPath();
 	}
 
 	strcat(path,songName);
@@ -319,3 +331,16 @@ void clearPath()
 		path[p] = '\0';
 	}
 }
+
+void initPath(void){
+	int p;
+	path[0] = '1';
+	path[1] = ':';
+	path[2] = '/';
+	path[3] = '\0';
+	for(p=4 ; p<MAX_PATH ; p++)
+	{
+		path[p] = '\0';
+	}
+}
+

@@ -4,7 +4,6 @@
 #include    "../../gpio.h"        // Configuración de los gpio: qué pin y en qué modo...
 #include    "../../pinout.h"      // Configuración relqacionada a la placa -> qué pines de qué puerto usa
 #include    <stdlib.h>         // :)
-#include "../../board.h"
 #include "..\eventos\eventQueue.h"     // Para poner el evento en la cola
 
 

@@ -11,7 +11,7 @@
 #include <resources/timers/SysTick.h>
 #include <stdio.h>
 #include <string.h>
-#include "board.h"
+//#include "board.h"
 #include "gpio.h"
 #include "uart.h"
 #include "hardware.h"

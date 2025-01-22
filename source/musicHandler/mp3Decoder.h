@@ -1,3 +1,13 @@
+/***************************************************************************//**
+  @file     mp3Decoder.h
+  @brief    Decoder for music files
+  @author   Grupo 4 Laboratorio de Microprocesadores:
+  	  	  	Corcos, Manuel
+  	  	  	Lesiuk, Alejandro
+  	  	  	Paget, Milagros
+  	  	  	Voss, Maria de Guadalupe
+  ******************************************************************************/
+
 #ifndef _MP3READER_H_
 #define _MP3READER_H_
 

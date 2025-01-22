@@ -1,6 +1,6 @@
 #include "FTM.h"        // Algo de frecuencia
 #include "matrixLED.h"   // :)
-#include "../timers/PIT.h"        // Algo de los timers
+#include "../timers/timerPIT.h"        // Algo de los timers
 #include "PWM.h"        // Para mandar a la matriz
 #include "MK64F12.h"    // De la plaquitax
 #include "../../pinout.h"     // Configura qué pines se usan para x cosa
@@ -75,6 +75,7 @@ void initializeLEDMatrix(void) {
     PWM_SetTickPerPeriod(TICKS_PER_PERIOD);
     PWM_GenWaveform(pwmBuffer, TOTAL_LEDS * LED_BITS_PER_PIXEL + 2, 1, handleRefreshEnd);
 
+    /*HAY QUE CAMBIAR LA FORMA EN LA QUE SE INCIALIZAN LOS TIMERS!!!! Fijense en timerPIT :D*/
     // Timer para actualizar la matriz
     refreshTimerId = createTimerPIT(REFRESH_RATE_HZ, refreshMatrix);
     // Timer para el blink -> CAPAZ NO LO NECESITAMOS

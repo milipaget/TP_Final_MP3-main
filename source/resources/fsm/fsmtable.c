@@ -6,14 +6,13 @@
 #include "../../mp3Config.h"
 #include "../eventos/eventQueue.h"
 #include "../../gpio.h"
-#include "../../board.h"
 #include "../ledMatrix/vumeter.h"
 #include "../ledMatrix/matrixLED.h"
 #include "../../musicHandler/mp3Decoder.h"
 #include "../../musicHandler/dma_music.h"
 #include "../SDHC/ff.h"
 #include "../timers/timer.h"
-
+#include "../../pinout.h"
 #include "../../DSP/EQUALIZER/equalizer.h"
 #include "../../DSP/FFT/fft.h"
 
@@ -39,7 +38,7 @@ static void changeToSongError(void);
 static void changeToNoError(void);
 static void checkSD(void);
 
-static void spectrumAnalysis(q15_t* input, q15_t* outputEqualizer, q15_t* buffer, uint16_t samples, uint8_t volume);
+static void spectrumAnalysis(q15_t* input, q15_t* outputEqualizer_N, q15_t* buffer_N, uint16_t samples, uint8_t volume);
 static void selectSong(void);
 
 #define BUFFERSIZE 200
@@ -256,15 +255,15 @@ static void checkSD(void){
 	changeToNoError();
 }
 
-void updateMP3Callback(void){
+void updateMP3(void){
 	if(PTR2mp3ConfigVariables->isPlaying){
 		if(DMA_StatusBuffers() != 2){
 			if(ping_pong){
 				ping_pong = !ping_pong;
 				br = MP3DecNextFrame(pPrevTable);
-				spectrumAnalysis(pPrevTable, outputEqualizer2, buffer, OUTBUFF_SIZE, PTR2mp3ConfigVariables->volume);
-				dmaBuff2 = outputEqualizer2;
-				//dmaBuff2 = pPrevTable;
+				//spectrumAnalysis(pPrevTable, outputEqualizer2, buffer, OUTBUFF_SIZE, PTR2mp3ConfigVariables->volume);
+				//dmaBuff2 = outputEqualizer2;
+				dmaBuff2 = pPrevTable;
 				for (int i = 0; i < OUTBUFF_SIZE; i++) {
 					dmaBuff2[i] = 0x8000U + dmaBuff2[i] * (float) PTR2mp3ConfigVariables->volume/15 ;
 					dmaBuff2[i] *= ((float)0xFFFU / 0xFFFFU);
@@ -274,9 +273,9 @@ void updateMP3Callback(void){
 			else{
 				ping_pong = !ping_pong;
 				br = MP3DecNextFrame(pTable);
-				spectrumAnalysis(pTable, outputEqualizer, buffer, OUTBUFF_SIZE, PTR2mp3ConfigVariables->volume);
-				dmaBuff1 = outputEqualizer;
-				//dmaBuff1 = pTable;
+				//spectrumAnalysis(pTable, outputEqualizer, buffer, OUTBUFF_SIZE, PTR2mp3ConfigVariables->volume);
+				//dmaBuff1 = outputEqualizer;
+				dmaBuff1 = pTable;
 				for (int i = 0; i < OUTBUFF_SIZE; i++) {
 					dmaBuff1[i] = 0x8000U + dmaBuff1[i] * (float)PTR2mp3ConfigVariables->volume/15;
 					dmaBuff1[i] *= ((float)0xFFFU / 0xFFFFU);
@@ -304,9 +303,7 @@ void selectSong(void){
 		pTable = buff1;
 		pPrevTable = buff2;
 
-		if (!MP3DecNextFrame(pTable)) {
-			//int o;
-		}
+		MP3DecNextFrame(pTable);
 
 		// 16 bit to 12 bit and shifting
 		for (int i = 0; i < OUTBUFF_SIZE; i++) {
@@ -317,9 +314,12 @@ void selectSong(void){
 		br = 1;
 		DMAmusic((uint16_t*)buff1, OUTBUFF_SIZE-1, 44100);
 	}
+	else{
+		increaseSongPointer();
+	}
 }
 
-static void spectrumAnalysis(q15_t* input, q15_t* outputEqualizer, q15_t* buffer, uint16_t samples, uint8_t volumen)
+static void spectrumAnalysis(q15_t* input, q15_t* outputEqualizer_N, q15_t* buffer_N, uint16_t samples, uint8_t volumen)
 {
     // Copio el input concatenado a las ultimas muestras anteriores
     q15_t inputEqualizer[FFTSIZE];
@@ -330,20 +330,20 @@ static void spectrumAnalysis(q15_t* input, q15_t* outputEqualizer, q15_t* buffer
     // Actualizo el buffer
     //memcpy(buffer, &inputEqualizer[samples], BUFFERSIZE*sizeof(int16_t));
 
-    equalizer(inputEqualizer, outputEqualizer, samples + BUFFERSIZE);
-    q15_t inputFFT[FFTSIZE], outputFFT[SPECTRUM_GROUPS];
-    bool ifftFlag = false;
+    equalizer(inputEqualizer, outputEqualizer_N, samples + BUFFERSIZE);
+    //q15_t inputFFT[FFTSIZE], outputFFT[SPECTRUM_GROUPS];
+    //bool ifftFlag = false;
 
     for (uint16_t i = 0; i < BUFFERSIZE; i++)
 	{
-		outputEqualizer[i] += buffer[i];		//overlap and add
+    	outputEqualizer_N[i] += buffer_N[i];		//overlap and add
 	}
 
     // Actualizo el buffer
-	memcpy(buffer, &outputEqualizer[samples], BUFFERSIZE*sizeof(int16_t));
+	memcpy(buffer_N, &outputEqualizer_N[samples], BUFFERSIZE*sizeof(int16_t));
 
     // Guardo las muestras correspondientes al audio recibido
-    memcpy(inputFFT, outputEqualizer, samples*sizeof(int16_t));
+   // memcpy(inputFFT, outputEqualizer_N, samples*sizeof(int16_t));
     //fftGroups(inputFFT, outputFFT, samples, ifftFlag, volumen);
 
     uint8_t matrix[64][3];

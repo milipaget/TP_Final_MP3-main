@@ -1,8 +1,12 @@
 /***************************************************************************//**
-  @file     dma.h
-  @brief    Driver for Dynamic Memory Access
-  @author   TEAM OREO
- ******************************************************************************/
+  @file     dma_music
+  @brief    DMA for music purposes
+  @author   Grupo 4 Laboratorio de Microprocesadores:
+  	  	  	Corcos, Manuel
+  	  	  	Lesiuk, Alejandro
+  	  	  	Paget, Milagros
+  	  	  	Voss, Maria de Guadalupe
+  ******************************************************************************/
 
 /*******************************************************************************
  * INCLUDE HEADER FILES
@@ -11,7 +15,7 @@
 #include <stddef.h>
 #include "dma_music.h"
 #include "dac.h"
-#include "../resources/timers/PIT.h"
+#include "../resources/timers/timerPIT.h"
  /******************************************************************************
   *
   *
@@ -79,11 +83,11 @@ enum{
 /*******************************************************************************
  * GLOBAL VARIABLES
  ******************************************************************************/
-//static void dma_irq_handler(uint8_t channel);
+static void dma_irq_handler(uint8_t channel);
 static TCD_t TCDA __attribute__ ((aligned (32))),TCDB __attribute__ ((aligned (32)));
 static bool statusBufferA = FREE_BUFF, statusBufferB = FREE_BUFF;
 static uint8_t actualBuffer = bufferA; // 0 bufferA, 1 bufferB
-//static pit_config pitConfig;
+static pit_config pitConfig;
 static uint8_t pitTimerID;
 static uint32_t actualSampleRate;
 /*******************************************************************************
@@ -94,8 +98,10 @@ static uint32_t actualSampleRate;
 void DMAmusicInit()
 {
 		dacInit();
-		pitTimerID = createTimerPIT(TIMER_PIT * 0.02, NULL);
+		pitConfig.id = PIT_ID_0;
+		pitConfig.LDVAL_ = TIMER_PIT;
 		actualSampleRate = FREQ_PIT/TIMER_PIT;
+		timerPITinit(pitConfig, NULL);
 		//Aca hay que configurar para que accione el request con el PIT
 
 		SIM->SCGC7 |= SIM_SCGC7_DMA_MASK;
@@ -114,8 +120,7 @@ bool DMAmusic(uint16_t* source,uint32_t cantRequest,uint32_t sampleRate)
 {
 	if(actualSampleRate != sampleRate)
 	{
-		//setTimerPITLDVAL(PIT_ID_0,FREQ_PIT/sampleRate);
-		configTimerTimePIT(pitTimerID, sampleRate/FREQ_PIT);
+		setTimerPITLDVAL(PIT_ID_0,FREQ_PIT/sampleRate);
 		actualSampleRate=sampleRate;
 	}
 	if(!statusBufferA)
@@ -186,17 +191,17 @@ bool DMAmusic(uint16_t* source,uint32_t cantRequest,uint32_t sampleRate)
 		return false;
 	}
 
-	startTimerPIT(pitTimerID);
+	timerPITStart(pitTimerID);
 	return true;
 }
 
 void DMA_ResumeMusic()
 {
-	startTimerPIT(pitTimerID);
+	timerPITStart(pitTimerID);
 }
 void DMA_PauseMusic()
 {
-	stopTimerPIT(pitTimerID);
+	timerPITStart(pitTimerID);
 	DAC0->DAT[0].DATH = 0x08;
 	DAC0->DAT[0].DATL = 0x00;
 }

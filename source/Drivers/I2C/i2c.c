@@ -9,7 +9,7 @@
  ******************************************************************************/
 #include <stdio.h>
 #include <string.h>
-#include "board.h"
+//#include "board.h"
 #include "hardware.h"
 #include "i2c.h"
 #include "gpio.h"

@@ -28,6 +28,13 @@
 //Pines utilizados para la matriz de LEDs
 #define DIN_PIN PORTNUM2PIN(PB, 9) // GPIO to transfer leds data
 
+
+#define PIN_LED_RED     PORTNUM2PIN(PB,22)
+#define PIN_LED_GREEN   PORTNUM2PIN(PE,26)
+#define PIN_LED_BLUE    PORTNUM2PIN(PB, 21)
+
+#define LED_ACTIVE      LOW
+
 /*******************************************************************************
  ******************************************************************************/
 

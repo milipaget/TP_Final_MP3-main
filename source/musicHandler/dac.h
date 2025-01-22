@@ -1,8 +1,12 @@
 /***************************************************************************//**
-  @file     dac.h
-  @brief    Driver for Digital to Analog Conversion
-  @author   TEAM OREO
- ******************************************************************************/
+  @file     dac.c
+  @brief    DAC
+  @author   Grupo 4 Laboratorio de Microprocesadores:
+  	  	  	Corcos, Manuel
+  	  	  	Lesiuk, Alejandro
+  	  	  	Paget, Milagros
+  	  	  	Voss, Maria de Guadalupe
+  ******************************************************************************/
 #ifndef DAC_H_
 #define DAC_H_
 

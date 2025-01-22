@@ -20,14 +20,14 @@
 #include "resources/Buttons/drv_BOTONES.h"
 #include "resources/Encoder/Encoder.h"
 #include "resources/ledMatrix/vumeter.h"
-#include "resources/timers/PIT.h"
+#include "resources/timers/timerPIT.h"
 #include "resources/SDHC/ff.h"
 #include "musicHandler/mp3Decoder.h"
 #include "musicHandler/dma_music.h"
 #include "Drivers/RTC/RTC.h"
 #include "gpio.h"
-#include "board.h"
 #include "mp3Config.h"
+#include "pinout.h"
 
 /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
@@ -51,21 +51,16 @@ void App_Init(void)
 	gpioWrite(PIN_LED_GREEN, !LED_ACTIVE);
 	gpioWrite(PIN_LED_BLUE, !LED_ACTIVE);
 	timerInit();
-	initPIT();
 	initButtons();
 	initEncoder();
-	//initVumeter();
-	if (f_mount(&FatFs, "1:/MP3_Files", 0) == FR_OK) {
-		//int a;
+	if (f_mount(&FatFs, "1:/", 0) == FR_OK) {
+		int a;
 	}
-	if (MP3DecInit()) {
-		//int a;
-	}
+	MP3DecInit();
 	DMAmusicInit();
 	p2state = FSM_GetInitState(); // Inicializo la FSM con el estado inicial
 
 	updateMP3Timer = timerGetId();
-	//timerStart(updateMP3Timer, TIMER_MS2TICKS(1), TIM_MODE_PERIODIC, updateMP3Callback);
 
 }
 
@@ -79,7 +74,7 @@ void App_Run(void)
 	{
 		p2state = fsm(p2state, nextEvent);
 	}
-	updateMP3Callback();
+	updateMP3();
 }
 
 

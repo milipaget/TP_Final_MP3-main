@@ -11,6 +11,6 @@
 #include "fsm.h"
 
 STATE *FSM_GetInitState(void);
-void updateMP3Callback(void);
+void updateMP3(void);
 
 #endif /* FSMTABLE_H_ */
