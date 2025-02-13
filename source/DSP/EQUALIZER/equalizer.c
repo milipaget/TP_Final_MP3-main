@@ -121,11 +121,11 @@ void equalizer(q15_t* inputQ15, q15_t* outputQ15, uint16_t samples)
 	/* ----------------------------------------------------------------------
 	** Call the Q31 Biquad Cascade DF1 process function for band1, band2, band3, band4, band5
 	** ------------------------------------------------------------------- */
-	/*arm_biquad_cascade_df1_q31(&S[0], inputQ31, outputQ31, BLOCKSIZE);
+	arm_biquad_cascade_df1_q31(&S[0], inputQ31, outputQ31, BLOCKSIZE);
 	arm_biquad_cascade_df1_q31(&S[1], outputQ31, outputQ31, BLOCKSIZE);
 	arm_biquad_cascade_df1_q31(&S[2], outputQ31, outputQ31, BLOCKSIZE);
 	arm_biquad_cascade_df1_q31(&S[3], outputQ31, outputQ31, BLOCKSIZE);
-	arm_biquad_cascade_df1_q31(&S[4], outputQ31, outputQ31, BLOCKSIZE);*/
+	arm_biquad_cascade_df1_q31(&S[4], outputQ31, outputQ31, BLOCKSIZE);
 
 	/* ----------------------------------------------------------------------
 	** Convert Q31 result back to Q15

@@ -19,7 +19,6 @@
 #include "resources/timers/timer.h"
 #include "resources/Buttons/drv_BOTONES.h"
 #include "resources/Encoder/Encoder.h"
-#include "resources/ledMatrix/vumeter.h"
 #include "resources/timers/timerPIT.h"
 #include "resources/SDHC/ff.h"
 #include "musicHandler/mp3Decoder.h"
@@ -28,6 +27,9 @@
 #include "gpio.h"
 #include "mp3Config.h"
 #include "pinout.h"
+#include "Matrix/dma_matrix.h"
+#include "DSP/FFT/fft.h"
+#include "resources/PowerManagement/sleep.h"
 
 /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
@@ -53,15 +55,16 @@ void App_Init(void)
 	timerInit();
 	initButtons();
 	initEncoder();
+	fft_Init();
 	if (f_mount(&FatFs, "1:/", 0) == FR_OK) {
 		int a;
 	}
 	MP3DecInit();
 	DMAmusicInit();
 	p2state = FSM_GetInitState(); // Inicializo la FSM con el estado inicial
-
+	DMAmatrixInit();
 	updateMP3Timer = timerGetId();
-
+	setUpSleep();
 }
 
 /* Función que se llama constantemente en un ciclo infinito */

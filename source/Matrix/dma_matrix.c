@@ -7,15 +7,15 @@
 /*******************************************************************************
  * INCLUDE HEADER FILES
  ******************************************************************************/
-/*#include "hardware.h"
+#include "hardware.h"
 #include <stddef.h>
 #include "dma_matrix.h"
-#include "../PWM/PWM.h"
+#include "PWM.h"
 
 /*******************************************************************************
  * CONSTANT AND MACRO DEFINITIONS USING #DEFINE
  ******************************************************************************/
-/*
+
 #define SOURCE_OFFSET 2
 #define DESTINATION_OFFSET 0
 #define TRANSFER_ATTRIBUTES DMA_ATTR_SSIZE(0x1) | DMA_ATTR_DSIZE(0x1);
@@ -23,7 +23,7 @@
 
 
 /* Structure with the TCD fields. */
-/*typedef struct
+typedef struct
 {
 	uint32_t SADDR;
 	uint16_t SOFF;
@@ -56,7 +56,7 @@
 /*******************************************************************************
  * GLOBAL VARIABLES
  ******************************************************************************/
-/*static void DMARefreshMatrix(void);
+static void DMARefreshMatrix(void);
 static TCD_t mainTCD;
 static bool change = true;
 static uint16_t mainMatrix[2*SIZEMAINTABLE]; //Aca ya estan los bits uno por uno en PWM Format
@@ -65,7 +65,7 @@ static uint16_t mainMatrix[2*SIZEMAINTABLE]; //Aca ya estan los bits uno por uno
                         GLOBAL FUNCTION DEFINITIONS
  *******************************************************************************
  ******************************************************************************/
-/*void DMAmatrixInit()
+void DMAmatrixInit()
 {
 
 		SIM->SCGC7 |= SIM_SCGC7_DMA_MASK;
@@ -73,11 +73,11 @@ static uint16_t mainMatrix[2*SIZEMAINTABLE]; //Aca ya estan los bits uno por uno
 
 		DMAMUX->CHCFG[1] |= DMAMUX_CHCFG_ENBL_MASK |DMAMUX_CHCFG_SOURCE(30); // El 30 ftm2
 		/*****************************************/
-		/*NVIC_ClearPendingIRQ(DMA1_IRQn);
+		NVIC_ClearPendingIRQ(DMA1_IRQn);
 		NVIC_EnableIRQ(DMA1_IRQn);
 		pwmInit();
 		/*************************************************/
-		/*mainTCD.SADDR = (uint32_t)((uint16_t*)mainMatrix + 1); //El +1 es porque si no, el primer push lo hace de 9 bits xd
+		mainTCD.SADDR = (uint32_t)((uint16_t*)mainMatrix + 1); //El +1 es porque si no, el primer push lo hace de 9 bits xd
 		mainTCD.DADDR = (uint32_t)(&(FTM2->CONTROLS[0].CnV));
 		mainTCD.SOFF = SOURCE_OFFSET;
 		mainTCD.DOFF = DESTINATION_OFFSET;
@@ -86,7 +86,7 @@ static uint16_t mainMatrix[2*SIZEMAINTABLE]; //Aca ya estan los bits uno por uno
 		mainTCD.CITER_ELINKNO = DMA_CITER_ELINKNO_CITER(SIZEMAINTABLE);
 		mainTCD.BITER_ELINKNO = DMA_BITER_ELINKNO_BITER(SIZEMAINTABLE);
 		/*************************************************/
-		/*for(int i =0; i<2*SIZEMAINTABLE; i++)
+		for(int i =0; i<2*SIZEMAINTABLE; i++)
 		{
 			mainMatrix[i] = ZERO2PWMDUTTY;
 		}
@@ -264,7 +264,7 @@ void DMA1_IRQHandler(){
 	change = false;
 	FTM_StopClock(FTM2);
 	FTM2->CNT = 0X00;
-}*/
+}
 
 
 

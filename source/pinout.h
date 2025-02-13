@@ -16,17 +16,17 @@
  ******************************************************************************/
 //Pines utilizados para el encoder
 #define PORT_ENCODER_RCHA PORTNUM2PIN(PC, 8)
-#define PORT_ENCODER_RCHB PORTNUM2PIN(PB, 18)
+#define PORT_ENCODER_RCHB PORTNUM2PIN(PB, 9)
 #define PORT_ENCODER_BUTTON PORTNUM2PIN(PB, 19)
 
 //Pines utilizados para los botones
-#define ON_OFF_BUTTON_PIN PORTNUM2PIN(PC,5)
+#define ON_OFF_BUTTON_PIN PORTNUM2PIN(PC,6)
 #define NEXT_BUTTON_PIN PORTNUM2PIN(PC,7)
 #define PREV_BUTTON_PIN PORTNUM2PIN(PC,0)
 #define CHANGE_FILTER_BUTTON_PIN PORTNUM2PIN(PC,9)
 
 //Pines utilizados para la matriz de LEDs
-#define DIN_PIN PORTNUM2PIN(PB, 9) // GPIO to transfer leds data
+//#define DIN_PIN PORTNUM2PIN(PB, 9) // GPIO to transfer leds data
 
 
 #define PIN_LED_RED     PORTNUM2PIN(PB,22)

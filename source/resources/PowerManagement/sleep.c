@@ -1,4 +1,3 @@
-
 /*****************************************************************************
   @file     sleep.c
   @brief    sleep
@@ -8,7 +7,7 @@
 /*******************************************************************************
  * INCLUDE HEADER FILES
  ******************************************************************************/
-#include "sleep.h"
+#include <resources/PowerManagement/sleep.h>
 #include "hardware.h"
 #include "core_cm4.h"
 #include "../../gpio.h"

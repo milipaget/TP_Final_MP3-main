@@ -7,7 +7,7 @@
 /*******************************************************************************
  * INCLUDE HEADER FILES
  ******************************************************************************/
-/*#include "FTM.h"
+#include "FTM.h"
 #include "board.h"
 
 
@@ -19,7 +19,7 @@
 /*******************************************************************************
  * GLOBAL VARIABLES
  ******************************************************************************/
-/*static ftm_callback_t ftmCallbacks[FTM_CANT];
+static ftm_callback_t ftmCallbacks[FTM_CANT];
 FTM_Type* FTMptr[] = { FTM0, FTM1, FTM2, FTM3 };
 
 
@@ -28,7 +28,7 @@ FTM_Type* FTMptr[] = { FTM0, FTM1, FTM2, FTM3 };
                         GLOBAL FUNCTION DEFINITIONS
  *******************************************************************************
  ******************************************************************************/
-/*__ISR__ FTM0_IRQHandler(void)
+__ISR__ FTM0_IRQHandler(void)
 {
 	FTM_ClearOverflowFlag (FTM0);
 	(*ftmCallbacks[0])();
@@ -292,4 +292,4 @@ bool FTM_IsInterruptPending (FTM_t ftm, FTMChannel_t channel)
 void FTM_ClearInterruptFlag (FTM_t ftm, FTMChannel_t channel)
 {
 	ftm->CONTROLS[channel].CnSC &= ~FTM_CnSC_CHF_MASK;
-}*/
+}
